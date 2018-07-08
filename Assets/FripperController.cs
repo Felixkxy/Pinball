@@ -43,6 +43,39 @@ public class FripperController : MonoBehaviour {
         {
             SetAngle(this.defaultAngle);
         }
+
+
+        //タッチする際の処理
+        if (Input.touchCount > 0)
+        {
+            //タッチ情報を取得
+            Touch touch = Input.GetTouch(0);
+            //左画面に触れた時左フリッパーを動かす
+            if (touch.phase == TouchPhase.Began && touch.position.x <= Screen.width / 2 && tag == "LeftFripperTag")
+            {
+                SetAngle(this.flickAngle);
+            }
+            //左画面に止まった時左フリッパーを動かす
+            if (touch.phase == TouchPhase.Stationary && touch.position.x <= Screen.width / 2 && tag == "LeftFripperTag")
+            {
+                SetAngle(this.flickAngle);
+            }
+            //右画面に触れた時右フリッパーを動かす
+            if (touch.phase == TouchPhase.Began && touch.position.x >= Screen.width / 2 && tag == "RightFripperTag")
+            {
+                SetAngle(this.flickAngle);
+            }
+            //右画面に止まった時右フリッパーを動かす
+            if (touch.phase == TouchPhase.Stationary && touch.position.x >= Screen.width / 2 && tag == "RightFripperTag")
+            {
+                SetAngle(this.flickAngle);
+            }
+            //画面から離れた時フリッパーを戻す
+            if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            {
+                SetAngle(this.defaultAngle);
+            }
+        }
     }
 
     //フリッパーの傾きを設定
